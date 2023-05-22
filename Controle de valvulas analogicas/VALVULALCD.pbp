@@ -1,0 +1,37 @@
+[DeviceName]
+Value=P16F690
+[DeviceClock]
+Value=4
+[MainUnit]
+Value=VALVULALCD.pbas
+[DeviceFlags]
+Count=10
+Value0=_FCMEN_OFF = $37FF
+Value1=_IESO_OFF = $3BFF
+Value2=_BOR_OFF = $3CFF
+Value3=_CPD_OFF = $3FFF
+Value4=_CP_OFF = $3FFF
+Value5=_MCLRE_OFF = $3FDF
+Value6=_PWRTE_ON = $3FEF
+Value7=_WDT_OFF = $3FF7
+Value8=_INTRC_OSC_NOCLKOUT = $3FFC
+Value9=_EXTRC_OSC_NOCLKOUT = $3FFE
+[BuildSimDebug]
+Build=0
+SimDebug=0
+[ProjectFiles]
+Count=0
+[OtherFiles]
+Count=0
+Value0=D:\Salesiano 2020\UniSalesiano\Semestre 1\Eng Computacao - 7 Termo - Sistemas de Aquisicao de Dados\Exercicios 2020-03-20 - Controle de valvulas analogicas - LCD\VALVULALCD.pbas
+[TabIndex]
+Value=0
+[SearchPath]
+Count=5
+Value0=C:\Program Files (x86)\Mikroelektronika\mikroBasic\Defs\
+Value1=C:\Program Files (x86)\Mikroelektronika\mikroBasic\Uses\p16\
+Value2=D:\Salesiano 2021\UniSalesiano\Semestre 1\Eng Comp 7T - Sistemas de Aquisição de Dados\Trabalho 01 - Controle de valvulas analogicas\
+Value3=D:\Salesiano 2020\UniSalesiano\Semestre 1\Eng Computacao - 7 Termo - Sistemas de Aquisicao de Dados\Exercicios 2020-03-20 - Controle de valvulas analogicas - LCD\
+Value4=D:\Salesiano 2020\UniSalesiano\Semestre 1\Eng Eletrica - 7 Termo - Sistemas de Aquisicao de Dados\Exercicios 2020-02-27 - Controle de valvulas analogicas - LCD\
+[EEPROMinfo]
+isused=0

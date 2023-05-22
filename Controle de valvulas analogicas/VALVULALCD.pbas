@@ -1,0 +1,113 @@
+'************************************************************************
+' Controle de válvulas com temperatura com implementação de LCD.
+'************************************************************************
+program VALVULALCD
+dim leitura as integer   ' Leitura analógica do sensor de temperatura do tanque.
+dim TT      as float     ' Cálculo de temperatura do tanque.
+dim V1      as float     ' Temperatura ajustada para a válvula 1.
+dim V2      as float     ' Temperatura ajustada para a válvula 2.
+dim V3      as float     ' Temperatura ajustada para a válvula 3.
+dim texto   as string[6] ' Variável para de imprimir dados no LCD.
+
+'************************************************************************
+' O coeficiente foi obtido através do cálculo: 150 / 1023
+'************************************************************************
+const coeficiente as float = 0.1466275659824047
+
+'************************************************************************
+' Tela básica do sistema.
+'************************************************************************
+sub procedure tela()
+    Lcd_Out(1,1,"oC Tanque:")
+    Lcd_Out(1,20,"S")
+    Lcd_Out(2,1,"oC V1:")
+    Lcd_Out(3,1,"oC V2:")
+    Lcd_Out(4,1,"oC V3:")
+end sub
+
+main:
+TRISA=%11011111
+TRISB=%10101111
+TRISC=%00000000
+INTCON=%00000000
+ANSEL=%00001111
+ANSELH=%00000000
+
+'************************************************************************
+' Inicia o uso do display de LCD.
+'************************************************************************
+LCD_INIT(PORTC)
+LCD_CMD(Lcd_Cursor_Off)
+LCD_CMD(Lcd_Clear)
+
+tela()   ' Mostra a tela principal do projeto.
+
+executa:
+        leitura = Adc_Read(0) ' Leitura da porta analógica do sensor do tanque.
+        
+        '*****************************************************************
+        ' Lê a porta analógica de regulagem da válvula 1.
+        ' Liga ou desliga a válvula de acordo com a temperatura do tanque.
+        '*****************************************************************
+        if (Adc_Read(1)) <= leitura then
+           PORTA.5 = 0
+           Lcd_Out(2,20,"F")
+        Else
+            PORTA.5 = 1
+            Lcd_Out(2,20,"A")
+        End if
+        delay_ms(20)
+        
+        
+        
+        '*****************************************************************
+        ' Lê a porta analógica de regulagem da válvula 2.
+        ' Liga ou desliga a válvula de acordo com a temperatura do tanque.
+        '*****************************************************************
+        if (Adc_Read(2)) <= leitura then
+           PORTB.4 = 0
+           Lcd_Out(3,20,"F")
+        Else
+            PORTB.4 = 1
+            Lcd_Out(3,20,"A")
+        End if
+        delay_ms(20)
+
+        '*****************************************************************
+        ' Lê a porta analógica de regulagem da válvula 3.
+        ' Liga ou desliga a válvula de acordo com a temperatura do tanque.
+        '*****************************************************************
+        if (Adc_Read(3)) <= leitura then
+           PORTB.6 = 0
+           Lcd_Out(4,20,"F")
+        Else
+            PORTB.6 = 1
+            Lcd_Out(4,20,"A")
+        End if
+        delay_ms(20)
+
+'************************************************************************
+' Cálculos das temperatura para mostrar no LCD.
+'************************************************************************
+        TT = leitura * coeficiente
+        V1 = Adc_Read(1) * coeficiente
+        V2 = Adc_Read(2) * coeficiente
+        V3 = Adc_Read(3) * coeficiente
+
+'************************************************************************
+' Mostra os valores das temperaturas no LCD.
+'************************************************************************
+        IntToStr(TT,texto)
+        Lcd_Out(1,12,texto)
+        
+        IntToStr(V1,texto)
+        Lcd_Out(2,7,texto)
+        
+        IntToStr(V2,texto)
+        Lcd_Out(3,7,texto)
+        
+        IntToStr(V3,texto)
+        Lcd_Out(4,7,texto)
+        
+        goto executa
+end.
